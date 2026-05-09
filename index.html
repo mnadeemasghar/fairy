@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Fairy — Mango Flavored Drink. Premium tropical refreshment from ALIZA Foods &amp; Beverages. Quality standards and distributor information.">
+    <title>Fairy | Mango Flavored Drink</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --bg-elevated: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #5c5c5c;
+            --accent: #e85d04;
+            --accent-soft: #fff4e6;
+            --accent-dark: #c2410c;
+            --border: rgba(0, 0, 0, 0.08);
+            --shadow: 0 4px 24px rgba(26, 26, 26, 0.06);
+            --shadow-lg: 0 24px 48px rgba(232, 93, 4, 0.12);
+            --radius: 14px;
+            --radius-sm: 10px;
+            --max: 1120px;
+            --header-h: 72px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--header-h) + 16px);
+        }
+
+        body {
+            margin: 0;
+            font-family: "DM Sans", system-ui, sans-serif;
+            font-optical-sizing: auto;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: rgba(232, 93, 4, 0.15);
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            z-index: 100;
+            padding: 0.75rem 1rem;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+        }
+        .skip-link:focus {
+            left: 1rem;
+            top: 1rem;
+        }
+
+        /* Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            height: var(--header-h);
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .site-header__inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 max(1.25rem, env(safe-area-inset-left, 0px)) 0 max(1.25rem, env(safe-area-inset-right, 0px));
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            min-width: 0;
+        }
+
+        .logo {
+            font-family: "Outfit", sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.15rem, 4.2vw, 1.35rem);
+            letter-spacing: 0.12em;
+            flex-shrink: 0;
+            color: var(--text);
+            text-decoration: none;
+        }
+        .logo span { color: var(--accent); }
+
+        .nav-desktop {
+            display: none;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        @media (min-width: 880px) {
+            .nav-desktop { display: flex; }
+        }
+
+        .nav-desktop a {
+            padding: 0.5rem 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            border-radius: var(--radius-sm);
+            transition: color 0.2s, background 0.2s;
+        }
+        .nav-desktop a:hover,
+        .nav-desktop a[aria-current="page"] {
+            color: var(--accent-dark);
+            background: var(--accent-soft);
+        }
+
+        .header-cta {
+            display: none;
+            padding: 0.55rem 1.1rem;
+            background: var(--accent);
+            color: #fff !important;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .header-cta:hover { background: var(--accent-dark); }
+        @media (min-width: 880px) { .header-cta { display: inline-flex; } }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            border: none;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+        @media (min-width: 880px) { .menu-toggle { display: none; } }
+
+        .menu-toggle svg { width: 22px; height: 22px; }
+
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            inset: var(--header-h) 0 0 0;
+            background: rgba(26, 26, 26, 0.45);
+            z-index: 40;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nav-mobile.is-open { display: block; }
+
+        .nav-mobile__panel {
+            background: var(--bg-elevated);
+            padding: 1rem max(1.25rem, env(safe-area-inset-left, 0px)) max(2rem, env(safe-area-inset-bottom, 0px)) max(1.25rem, env(safe-area-inset-right, 0px));
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            max-height: min(70vh, calc(100dvh - var(--header-h)));
+            overflow-y: auto;
+        }
+        .nav-mobile a {
+            padding: 0.85rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+        }
+        .nav-mobile a:hover { background: var(--accent-soft); color: var(--accent-dark); }
+
+        /* Layout */
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 max(1.25rem, env(safe-area-inset-left, 0px)) 0 max(1.25rem, env(safe-area-inset-right, 0px));
+        }
+
+        .hero {
+            padding: 2.25rem 0 2.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+        @media (min-width: 768px) { .hero { padding: 4.5rem 0 5rem; } }
+
+        .hero__grid {
+            display: grid;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        @media (min-width: 900px) {
+            .hero__grid {
+                grid-template-columns: 1.05fr 0.95fr;
+                gap: 3rem;
+            }
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-family: "Outfit", sans-serif;
+            font-weight: 700;
+            font-size: clamp(2.25rem, 5vw, 3.25rem);
+            line-height: 1.12;
+            letter-spacing: -0.02em;
+            margin: 0 0 1rem;
+        }
+
+        .hero__lead {
+            font-size: clamp(1rem, 2.8vw, 1.125rem);
+            color: var(--text-muted);
+            max-width: 36ch;
+            margin: 0 0 1.75rem;
+        }
+
+        .hero__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.35rem;
+            min-height: 48px;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+        }
+        .btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+        .btn--primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn--primary:hover { background: var(--accent-dark); }
+        .btn--ghost {
+            background: transparent;
+            color: var(--text);
+            border-color: var(--border);
+        }
+        .btn--ghost:hover {
+            border-color: var(--accent);
+            color: var(--accent-dark);
+            background: var(--accent-soft);
+        }
+
+        .hero__visual {
+            position: relative;
+            border-radius: calc(var(--radius) + 4px);
+            background: linear-gradient(145deg, #fff 0%, var(--accent-soft) 100%);
+            padding: clamp(0.5rem, 2vw, 1rem);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+        .hero__visual figure {
+            margin: 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            line-height: 0;
+            background: #1e3a5f;
+        }
+        .hero__visual img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        section {
+            padding: 2.5rem 0;
+        }
+        @media (min-width: 768px) {
+            section { padding: 3.5rem 0; }
+        }
+        .section-block { border-top: 1px solid var(--border); }
+
+        .section-head {
+            margin-bottom: 1.5rem;
+            max-width: 640px;
+        }
+        @media (min-width: 768px) {
+            .section-head { margin-bottom: 2rem; }
+        }
+        .section-head h2 {
+            font-family: "Outfit", sans-serif;
+            font-size: clamp(1.65rem, 3vw, 2rem);
+            font-weight: 700;
+            margin: 0 0 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        .section-head p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: clamp(1rem, 2.5vw, 1.0625rem);
+        }
+
+        .cards {
+            display: grid;
+            gap: 1.25rem;
+        }
+        @media (min-width: 640px) {
+            .cards--3 { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (min-width: 768px) {
+            .cards--2 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        .card h3 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem;
+        }
+        .card p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9375rem;
+        }
+        .card-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-sm);
+            background: var(--accent-soft);
+            color: var(--accent-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .split-panel {
+            display: grid;
+            gap: 2rem;
+        }
+        @media (min-width: 900px) {
+            .split-panel { grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+        }
+
+        .info-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .info-list li {
+            padding: 0.65rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            font-size: 0.9375rem;
+        }
+        .info-list li:last-child { border-bottom: none; }
+        .info-list span:first-child { color: var(--text-muted); flex-shrink: 0; }
+        .info-list span:last-child { font-weight: 600; text-align: right; word-break: break-word; }
+
+        .ingredients {
+            background: var(--accent-soft);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.35rem;
+            font-size: 0.875rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.25rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            background: #ecfdf5;
+            color: #047857;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            border-radius: 999px;
+        }
+
+        .note-box {
+            margin-top: 1.5rem;
+            padding: 1rem 1.25rem;
+            background: #f0fdf4;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            color: #166534;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .partner-highlight {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2a28 100%);
+            color: #f5f5f4;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+        .partner-highlight h3 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.35rem;
+            margin: 0 0 1rem;
+        }
+        .partner-highlight ul {
+            margin: 0;
+            padding-left: 1.15rem;
+            color: #d6d3d1;
+            font-size: 0.9375rem;
+        }
+        .partner-highlight li { margin-bottom: 0.5rem; }
+
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .steps li {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 1.25rem;
+        }
+        .steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--accent);
+            color: #fff;
+            font-family: "Outfit", sans-serif;
+            font-weight: 700;
+            font-size: 0.875rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .steps strong { display: block; margin-bottom: 0.25rem; }
+
+        .cta-strip {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: var(--accent-soft);
+            border-radius: var(--radius);
+            border: 1px solid rgba(232, 93, 4, 0.15);
+        }
+        .cta-strip h3 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.5rem;
+            margin: 0 0 0.5rem;
+        }
+        .cta-strip p {
+            color: var(--text-muted);
+            margin: 0 0 1.25rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+        .cta-links a {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            max-width: 100%;
+        }
+
+        .site-footer {
+            background: #1c1917;
+            color: #a8a29e;
+            padding: 2.5rem 0 max(2rem, env(safe-area-inset-bottom, 0px));
+            font-size: 0.875rem;
+        }
+        @media (min-width: 768px) {
+            .site-footer { padding-top: 3rem; }
+        }
+        .site-footer__grid {
+            display: grid;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            .site-footer__grid { grid-template-columns: 1.2fr 1fr; }
+        }
+        .site-footer h4 {
+            font-family: "Outfit", sans-serif;
+            color: #fff;
+            font-size: 0.9375rem;
+            margin: 0 0 0.75rem;
+            letter-spacing: 0.02em;
+        }
+        .site-footer p, .site-footer address {
+            margin: 0 0 0.5rem;
+            font-style: normal;
+            line-height: 1.7;
+        }
+        .site-footer a {
+            color: #fdba74;
+            text-decoration: none;
+        }
+        .site-footer a:hover { text-decoration: underline; }
+
+        .footer-bottom {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #44403c;
+            font-size: 0.8125rem;
+            color: #78716c;
+            padding-left: env(safe-area-inset-left, 0px);
+            padding-right: env(safe-area-inset-right, 0px);
+        }
+
+        /* Small screens: touch targets, spacing, no horizontal scroll */
+        @media (max-width: 879px) {
+            :root { --header-h: 64px; }
+
+            html {
+                scroll-padding-top: calc(var(--header-h) + 12px);
+            }
+
+            /* More breathing room so hero headline & copy aren’t flush to screen edges */
+            .wrap {
+                padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
+                padding-right: max(1.5rem, env(safe-area-inset-right, 0px));
+            }
+
+            section.hero.wrap {
+                padding-left: max(2rem, calc(0.5rem + env(safe-area-inset-left, 0px)));
+                padding-right: max(2rem, calc(0.5rem + env(safe-area-inset-right, 0px)));
+            }
+
+            .hero__grid {
+                gap: 1.75rem;
+            }
+
+            .hero__actions {
+                flex-direction: column;
+            }
+
+            .hero__actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .cta-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cta-links .btn {
+                width: 100%;
+            }
+
+            .cta-strip {
+                padding: 2rem 1.15rem;
+            }
+
+            .partner-highlight {
+                padding: 1.5rem;
+            }
+
+            .card {
+                padding: 1.25rem;
+            }
+
+            .ingredients {
+                overflow-wrap: anywhere;
+                hyphens: auto;
+                -webkit-hyphens: auto;
+            }
+
+            .info-list li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+                padding: 0.75rem 0;
+            }
+
+            .info-list span:last-child {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 380px) {
+            section.hero.wrap {
+                padding-left: max(2.25rem, env(safe-area-inset-left, 0px));
+                padding-right: max(2.25rem, env(safe-area-inset-right, 0px));
+            }
+
+            .badge {
+                font-size: 0.6875rem;
+                padding: 0.3rem 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a class="logo" href="#">Fair<span>y</span></a>
+            <nav class="nav-desktop" aria-label="Main">
+                <a href="#brand">Brand</a>
+                <a href="#consumers">For consumers</a>
+                <a href="#partners">Distribution</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <a class="header-cta btn btn--primary" href="#partners">Partner with us</a>
+            <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav-overlay" aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="nav-mobile" id="mobile-nav-overlay" hidden>
+        <nav class="nav-mobile__panel" aria-label="Mobile">
+            <a href="#brand">Brand</a>
+            <a href="#consumers">For consumers</a>
+            <a href="#partners">Distribution</a>
+            <a href="#contact">Contact</a>
+            <a class="btn btn--primary" href="#partners" style="margin-top: 0.5rem; text-align: center;">Partner with us</a>
+        </nav>
+    </div>
+
+    <main id="main">
+        <section class="hero wrap">
+            <div class="hero__grid">
+                <div>
+                    <span class="eyebrow">Mango Flavored Drink</span>
+                    <h1>Pure tropical refreshment in every sip</h1>
+                    <p class="hero__lead"><strong>Fairy</strong> is our Mango Flavored Drink—sun-ripened mango taste and dependable quality—crafted for people who want a chilled escape, and for retailers who want a name shoppers remember.</p>
+                    <div class="hero__actions">
+                        <a class="btn btn--primary" href="#consumers">Explore the drink</a>
+                        <a class="btn btn--ghost" href="#partners">Become a distributor</a>
+                    </div>
+                </div>
+                <div class="hero__visual">
+                    <figure>
+                        <img
+                            src="image.jpeg"
+                            width="1142"
+                            height="1600"
+                            alt="Fairy Mango Flavored Drink — brand artwork with mango splash, glass of beverage, Halal and Punjab Food Authority marks."
+                            decoding="async"
+                            fetchpriority="high"
+                        >
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-block" id="brand" style="background: var(--bg-elevated);">
+            <section class="wrap">
+                <div class="section-head">
+                    <h2>The brand</h2>
+                    <p><strong>Fairy</strong> is produced with care by ALIZA Foods &amp; Beverages—a <strong>Mango Flavored Drink</strong> line focused on consistent taste, clear labeling, and standards you can stand behind at home or on the shelf.</p>
+                </div>
+                <div class="cards cards--3">
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true">✓</div>
+                        <h3>Quality you can taste</h3>
+                        <p>Balanced mango flavor for refreshment on the go or quiet moments—best enjoyed chilled.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true">◎</div>
+                        <h3>Transparent standards</h3>
+                        <p>Halal certified with nutrition and ingredients clearly listed so shoppers know what they are buying.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" aria-hidden="true">↻</div>
+                        <h3>Responsible use</h3>
+                        <p>We encourage crushing bottles after use to support recycling and cleaner communities.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="section-block" id="consumers">
+            <section class="wrap">
+                <div class="section-head">
+                    <h2>For consumers</h2>
+                    <p>Everything you need to enjoy <strong>Fairy</strong> (<strong>Mango Flavored Drink</strong>) safely and at its best.</p>
+                </div>
+                <div class="split-panel">
+                    <div>
+                        <div class="card" style="margin-bottom: 1.25rem;">
+                            <h3 style="margin-top: 0;">Product snapshot</h3>
+                            <ul class="info-list" aria-label="Product details">
+                                <li><span>Product name</span><span>Fairy</span></li>
+                                <li><span>Category</span><span>Mango Flavored Drink</span></li>
+                                <li><span>Flavor profile</span><span>Sun-ripened mango</span></li>
+                                <li><span>Net volume</span><span>250ml</span></li>
+                                <li><span>Serving</span><span>Best served chilled</span></li>
+                            </ul>
+                            <div class="badges">
+                                <span class="badge">HALAL CERTIFIED</span>
+                                <span class="badge">QUALITY GUARANTEED</span>
+                                <span class="badge">GLOBAL STANDARDS</span>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3 style="margin-top: 0;">Nutrition (typical per 100ml)</h3>
+                            <ul class="info-list">
+                                <li><span>Energy</span><span>27 kcal</span></li>
+                                <li><span>Total fat</span><span>0 mg</span></li>
+                                <li><span>Saturated fat</span><span>0 mg</span></li>
+                                <li><span>Carbohydrates</span><span>6.5 g</span></li>
+                                <li><span>Total sugar</span><span>6.5 g</span></li>
+                                <li><span>Protein</span><span>Traces</span></li>
+                                <li><span>Sodium</span><span>0 mg</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <h3 style="margin-top: 0;">Ingredients</h3>
+                            <p class="ingredients">Water, Sugar, Acidity Regulator (Citric Acid E-330, Sodium Citrate E-331), Preservative (Sodium Benzoate E-211), Thickening Agent (Xanthan Gum E-412), Permitted Food Colors (Sunset Yellow, Tartrazine, Beta Carotene E-160a), Artificial Flavour.</p>
+                        </div>
+                        <div class="card">
+                            <h3 style="margin-top: 0;">Usage &amp; storage</h3>
+                            <ul style="margin: 0; padding-left: 1.15rem; color: var(--text-muted); font-size: 0.9375rem;">
+                                <li><strong style="color: var(--text);">Shake well</strong> before opening for the full flavor profile.</li>
+                                <li><strong style="color: var(--text);">Keep chilled</strong>—store in a cool place for maximum refreshment.</li>
+                                <li><strong style="color: var(--text);">Refrigerate</strong> after opening.</li>
+                            </ul>
+                            <div class="note-box" role="note">
+                                <span aria-hidden="true">♻️</span>
+                                <span>Please crush the bottle after use to help with recycling.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="section-block" id="partners" style="background: var(--bg-elevated);">
+            <section class="wrap">
+                <div class="section-head">
+                    <h2>For distribution &amp; retail partners</h2>
+                    <p>Scale <strong>Fairy</strong> Mango Flavored Drink with a producer that supports reliable supply and clear communication. Ideal for wholesalers, distributors, and stores expanding their beverage lineup.</p>
+                </div>
+                <div class="split-panel">
+                    <div class="partner-highlight">
+                        <h3>Why work with us</h3>
+                        <ul>
+                            <li>Established manufacturing with traceable product specifications</li>
+                            <li>Brand presentation suited for modern retail and food service</li>
+                            <li>Halal certification and consistent labeling for diverse markets</li>
+                            <li>Direct line to discuss volumes, regions, and timelines</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-family: Outfit, sans-serif; font-size: 1.25rem; margin: 0 0 1rem;">How to start</h3>
+                        <ol class="steps">
+                            <li>
+                                <strong>Reach out</strong>
+                                Share your business type, territory, and estimated volume using the contact details below.
+                            </li>
+                            <li>
+                                <strong>Review terms</strong>
+                                We will respond with availability, pricing guidance, and any documentation you need.
+                            </li>
+                            <li>
+                                <strong>Launch</strong>
+                                Coordinate delivery schedules and in-store or route support so Fairy lands smoothly on shelf.
+                            </li>
+                        </ol>
+                        <div class="cta-strip" style="margin-top: 2rem;">
+                            <h3>Ready to stock Fairy?</h3>
+                            <p>Email or call us—we typically reply within a few business days.</p>
+                            <div class="cta-links">
+                                <a class="btn btn--primary" href="mailto:fahadsiddiqueenterprises@gmail.com">Email partnership inquiry</a>
+                                <a class="btn btn--ghost" href="tel:+923007669872">Call +92 300 7669872</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="section-block" id="contact">
+            <section class="wrap" style="padding-bottom: 4rem;">
+                <div class="section-head">
+                    <h2>Contact &amp; manufacturing</h2>
+                    <p>Official details for consumers, partners, and regulatory reference.</p>
+                </div>
+                <div class="cards cards--2">
+                    <div class="card">
+                        <h3 style="margin-top: 0;">ALIZA Foods &amp; Beverages</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Manufacturer of <strong>Fairy</strong> Mango Flavored Drink.</p>
+                        <address>
+                            Chak No. 80 RB, 3 KM Sangla Hill to Safdarabad Road,<br>
+                            Tehsil Sangla Hill, Dist. Nankana Sahib.
+                        </address>
+                        <p style="margin-top: 1rem;"><strong>Licence No:</strong> SB/M-B/64097123</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="margin-top: 0;">Get in touch</h3>
+                        <p><strong>Email:</strong><br><a href="mailto:fahadsiddiqueenterprises@gmail.com" style="color: var(--accent-dark);">fahadsiddiqueenterprises@gmail.com</a></p>
+                        <p><strong>Phone:</strong><br><a href="tel:+923007669872" style="color: var(--accent-dark);">+92 300 7669872</a></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap site-footer__grid">
+            <div>
+                <h4>Fairy</h4>
+                <p>Mango Flavored Drink · Pure tropical refreshment. Produced by ALIZA Foods &amp; Beverages.</p>
+            </div>
+            <div>
+                <h4>Quick links</h4>
+                <p><a href="#consumers">Consumer information</a></p>
+                <p><a href="#partners">Distribution</a></p>
+                <p><a href="#contact">Contact</a></p>
+            </div>
+        </div>
+        <div class="wrap footer-bottom">
+            © <span id="year"></span> ALIZA Foods &amp; Beverages. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var yearEl = document.getElementById("year");
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+            var toggle = document.querySelector(".menu-toggle");
+            var overlay = document.getElementById("mobile-nav-overlay");
+            var panel = overlay ? overlay.querySelector(".nav-mobile__panel") : null;
+            var desktopLinks = document.querySelectorAll(".nav-desktop a");
+            var mobileLinks = overlay ? overlay.querySelectorAll("a") : [];
+
+            function setOpen(open) {
+                if (!overlay || !toggle) return;
+                overlay.classList.toggle("is-open", open);
+                overlay.hidden = !open;
+                toggle.setAttribute("aria-expanded", open ? "true" : "false");
+                toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+                document.body.style.overflow = open ? "hidden" : "";
+            }
+
+            if (toggle && overlay) {
+                toggle.addEventListener("click", function () {
+                    setOpen(!overlay.classList.contains("is-open"));
+                });
+                overlay.addEventListener("click", function (e) {
+                    if (e.target === overlay) setOpen(false);
+                });
+            }
+
+            function closeMobile() {
+                setOpen(false);
+            }
+
+            mobileLinks.forEach(function (a) {
+                a.addEventListener("click", closeMobile);
+            });
+
+            var sectionIds = ["brand", "consumers", "partners", "contact"];
+            var sections = sectionIds.map(function (id) {
+                return document.getElementById(id);
+            }).filter(Boolean);
+
+            function updateCurrentNav() {
+                var scrollY = window.scrollY + varHeaderOffset();
+                var current = sectionIds[0];
+                for (var i = sections.length - 1; i >= 0; i--) {
+                    if (sections[i] && sections[i].offsetTop <= scrollY) {
+                        current = sectionIds[i];
+                        break;
+                    }
+                }
+                desktopLinks.forEach(function (link) {
+                    var href = link.getAttribute("href");
+                    if (href === "#" + current) {
+                        link.setAttribute("aria-current", "page");
+                    } else {
+                        link.removeAttribute("aria-current");
+                    }
+                });
+            }
+
+            function varHeaderOffset() {
+                var header = document.querySelector(".site-header");
+                return header ? header.offsetHeight + 8 : 80;
+            }
+
+            var ticking = false;
+            window.addEventListener("scroll", function () {
+                if (!ticking) {
+                    window.requestAnimationFrame(function () {
+                        updateCurrentNav();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            updateCurrentNav();
+        })();
+    </script>
+</body>
+</html>
